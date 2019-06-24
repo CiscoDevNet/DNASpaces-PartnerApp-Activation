@@ -1,0 +1,62 @@
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<title>Trigue Dashboard</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+		.wrapper {
+			background-color: #fafafa;
+			width: 100%;
+			height: 100%;
+			color: #000;
+			font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 100px 0;
+		}
+		.error-box {
+			max-width: 960px;
+            margin: 0 auto;
+            background-color: #fff;
+            color: #000;
+			font-family: Arial, Helvetica, sans-serif;
+            padding: 40px;
+            box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
+		}
+        .error-msg {
+            font-size: 20px;
+            color: #ff7070;
+        }
+
+        .error-sub {
+            font-size: 18px;
+            color: #4d4d4d;
+        }
+		
+	</style>
+	<script language="JavaScript">
+	</script>
+
+</head>
+
+<body>
+	<header>
+		<div class="wrapper">
+            <div class="error-box">
+                <div class="header-image">
+                    <img src="/app.png" alt="App Logo"/>
+                </div>
+                <h2 class="error-msg">ERROR: <%= message %></h2>
+                <h3 class="error-sub">Please contact support.</h3>
+            </div>
+		</div>
+	</header>
+</body>
+
+</html>

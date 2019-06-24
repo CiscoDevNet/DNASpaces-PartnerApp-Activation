@@ -1,0 +1,7 @@
+{
+    "dnaspaces":{
+        "clientSecret" : "<secret-key>",
+        "redirectUri" : "<redirect-url>",
+        "partnerName" : "<partner-name>"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "admin@<partner-name>.<setup-name>.com": {
+      "customer": "<partner-name>",
+      "password": "admin"
+    }
+  }

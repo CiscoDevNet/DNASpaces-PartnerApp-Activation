@@ -1,0 +1,293 @@
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<title>Trigue Home Page</title>
+	<style>
+		/* Style all input fields */
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: normal;
+			background-color: rgba(0,0,0,0.9);
+			padding: 0;
+			margin: 0;
+		}
+
+		.container {
+			width: 100%;
+			height: 100vh;
+			background: url(/trigue_bg.png);
+			background-color: rgba(0,0,0,0.9);
+            background-repeat: no-repeat;
+            background-size: cover;
+			margin: 0 auto;
+		}
+
+		.header {
+			font-size: 25px;
+			text-align: center;
+		}
+
+		.header-title {
+			color: #666;
+			font-family: sans-serif;
+			font-size: 22px;
+			font-weight: 300;
+			line-height: 25px;
+			margin: 20px 0;
+		}
+
+		input {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-top: 6px;
+			margin-bottom: 16px;
+		}
+
+		/* Style the container for inputs */
+		.content {
+			background-color: #FFFFFF;
+			padding: 20px;
+			width: 100%;
+            max-width: 660px;
+			margin: 0 auto;
+			border: 1px solid #ddd;
+		}
+
+		.wrapper {
+			padding-top: 5%;
+		}
+
+		.parent {
+			background: rgba(0,0,0,0.6);
+			width: 100%;
+			height: 100%;
+		}
+
+		.activationForm {
+			padding: 20px 40px;
+		}
+		.activationForm > div {
+			margin: 10px 0;
+            color: #444;
+		}
+		.alert{
+			color: red;
+		}
+		.form-group {
+			margin: 40px 0 0;
+		}
+		.form-label {
+			color: #626469;
+			/* font-family: 'ciscoSans'; */
+			font-size: 12px;
+			font-weight: 300;
+			line-height: 13px;
+		}
+		.custom-input {
+			color: #000000;
+			/* font-family: CiscoSans; */
+			font-size: 14px;
+			letter-spacing: 0.58px;
+			line-height: 20px;
+			padding: 6px;
+			border: none;
+			border-bottom: 1px solid #999;
+			border-radius: 0;
+			outline: none;
+		}
+		.custom-input:focus {
+			border-color: #29CAC3;
+		}
+		.login-btn {
+			border-radius: 4px;
+			background-color: #29CAC3;
+			color: #FFFFFF;
+			/* font-family: CiscoSans; */
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 22px;
+			text-align: center;
+			padding: 18px;
+			cursor: pointer;
+			border-color: #29CAC3;
+			margin-top: 20px;
+            text-decoration: none;
+		}
+		
+		.or-separator {
+			margin: 30px 0;
+			text-align: center;
+			position: relative;
+		}
+		.or-text {
+			color: #1E1428;
+			/* font-family: CiscoSans; */
+			font-size: 14px;
+			font-weight: 300;
+			line-height: 30px;
+			text-align: center;
+			width: 30px;
+			height: 30px;
+			background-color: #fff;
+			z-index: 2;
+		}
+		
+		.terms-title {
+			color: #1E1428;
+			/* font-family: CiscoSans; */
+			font-size: 22px;
+			font-weight: 300;
+			line-height: 30px;
+		}
+		
+		.hidden {
+			opacity: 0;
+			visibility: hidden;
+			height: 0;
+			overflow: hidden;
+		}
+        .activate-btn {
+            margin: 30px 0 !important;
+            text-align: center;
+        }
+
+		/* Wizard Styles */
+		.wizard {
+			max-width: 480px;
+    		margin: 0 auto;
+			text-align: center;
+		}
+		.wizard > div {
+			display: inline-table;
+		}
+
+		.step {
+			background-color: #fff;
+			text-align: center;
+			font-size: 20px;
+			padding: 15px;
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			border: 4px solid #29CAC3;
+			font-weight: normal;
+			vertical-align: middle;
+			margin-left: -4px;
+			color: #29CAC3;
+		}
+		.active {
+			background-color: #29CAC3;
+			color: #fff;
+		}
+		.connector {
+			width: 100px;
+			height: 4px;
+			vertical-align: middle;
+			border: 2px solid #29CAC3;
+			margin-left: -4px;
+		}
+		.step-heading {
+			color: #1E1428;
+			margin: 20px 0 0;
+		}
+		.step-label {
+			line-height: 24px;
+		}
+		
+	</style>
+
+	<script language="JavaScript">
+		function activateOnPremiseApp() {
+			var activationKey = document.getElementById("activationKeyInput").value;
+			if (activationKey == "") {
+				alert("On Premise Activation Key should not be empty");
+				return false;
+			}
+			var activationEle = document.getElementById('activationContainer');
+			activationEle.classList.add('hidden');
+
+			var activationKeyInput = document.getElementById("activationKeyInput").value;
+			activationKeyInput = activationKeyInput.trim();
+
+			var altActivationKey = document.getElementById("activationKey");
+			altActivationKey.value = activationKeyInput;
+			submitForm();
+		}
+
+		function submitForm() {
+			var form = document.getElementById("activationForm");
+			form.action = "/auth/validateOnPremiseApp";
+			form.method = "post";
+			form.submit();
+		}
+
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="overlay"></div>
+		<header>
+			<div class="parent">
+				<div class="wrapper">
+					<div class="content" id="activationContainer">
+						<div class="header">
+							<div class="header-image">
+								<img src="/trigue_logo.png" alt="App Logo"/>
+							</div>
+							<div class="header-title">
+								Cisco DNA Spaces Connection
+							</div>
+						</div>
+						<div class="wizard">
+							<div class="step active">1</div>
+							<div class="connector"></div>
+							<div class="step active">2</div>
+							<div class="connector"></div>
+							<div class="step">3</div>
+						</div>
+						<div class="activationForm">
+							<h2 class="step-heading">2. ACTIVATE</h2>
+							<div class="step-label">
+								Paste the copied activation token in the "Activation Token" text box and click on Activate
+							</div>
+							<form id="activationForm" name="activationForm" onsubmit="return false">
+								<div class="form-group">
+									<label class="form-label" for="activationKeyInput">Activation Token</label>
+									<input placeholder="Activation Token" class="custom-input" type="text" id="activationKeyInput" name="activationKeyInput">
+								</div>
+								
+								<input type="hidden" id="activationKey" name="activationKey" />
+		
+								<input class="login-btn" type="submit" value="Activate App" onclick="activateOnPremiseApp()">
+		
+								<!-- show any messages that come back with authentication -->
+								<% if (message.length > 0) { %>
+									<div id="errorMessage" class="alert"><%= message %></div>
+								<% } %>
+							</form>
+							<!-- <div>
+								Step 2: Navigate to the "<a href="/auth/activateOnPremiseApp">activation page</a>" and 
+							</div>
+							<div>
+								Once the app is activated, you will be getting the api key.
+							</div>
+							<div>
+								Step 3: Please use the Api Key while invoking the API to receive data from pull channels.
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+</body>
+
+</html>

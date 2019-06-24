@@ -1,0 +1,3 @@
+DEBUG=dna-spaces-firehose-app:* npm start
+
+killall node

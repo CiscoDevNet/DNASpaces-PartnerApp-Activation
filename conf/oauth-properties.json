@@ -1,0 +1,14 @@
+{
+			"node":{
+			"port":7171
+		},
+		"jwt":{
+			"encodeKey":"<pem-file-password>",
+			"issuedAt":3000,
+			"privateKeyPath":"<private-pem-file-location>",
+			"publicKeyPath":"<<public-pem-file-location>"
+		},
+		"dnaspaces":{
+			"host":"partners.dnaspaces.io"
+		}	
+}   

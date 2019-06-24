@@ -1,0 +1,17 @@
+{
+  "<partner-name>":{
+  "name":"<partner-name>",
+  "tenantId": "<partner-tenant-Id>",
+  "email":"<partner-email>",
+  "phone":"<partner-mobile-number>",
+  "website":"<partner-website>",
+  "telemetry":[
+    {
+      "type":"temp", 
+      "name":"temperature", 
+      "value":"32", 
+      "units":"1" 
+    }
+  ]
+}
+}

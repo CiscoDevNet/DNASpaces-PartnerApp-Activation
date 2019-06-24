@@ -1,0 +1,407 @@
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<title>OAuth Login</title>
+	<style>
+		/* Style all input fields */
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: normal;
+		}
+
+		.header {
+			font-size: 25px;
+			text-align: center;
+			padding: 30px 0;
+			color: #444;
+		}
+
+		.header-title {
+			color: #1E1428;
+			font-family: sans-serif;
+			font-size: 18px;
+			font-weight: 300;
+			line-height: 25px;
+			margin-top: 20px;
+		}
+
+		input {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-top: 6px;
+			margin-bottom: 16px;
+		}
+
+		/* Style the container for inputs */
+		.container {
+			background-color: #FFFFFF;
+			padding: 20px;
+			width: 480px;
+			margin: 0 auto;
+			border: 1px solid #ddd;
+		}
+
+		.wrapper {
+			padding-top: 5%;
+		}
+
+		.parent {
+			background-color: #F7F7F5;
+			width: 100%;
+			height: 100%;
+		}
+
+		#loginForm {
+			padding: 0 40px;
+		}
+		.alert{
+			color: red;
+		}
+		.form-group {
+			margin: 40px 0 0;
+		}
+		.form-label {
+			color: #626469;
+			/* font-family: 'ciscoSans'; */
+			font-size: 12px;
+			font-weight: 300;
+			line-height: 13px;
+		}
+		.custom-input {
+			color: #000000;
+			/* font-family: CiscoSans; */
+			font-size: 14px;
+			letter-spacing: 0.58px;
+			line-height: 20px;
+			padding: 6px;
+			border: none;
+			border-bottom: 1px solid #999;
+			border-radius: 0;
+			outline: none;
+		}
+		.custom-input:focus {
+			border-color: #29CAC3;
+		}
+		.login-btn {
+			border-radius: 4px;
+			background-color: #29CAC3;
+			color: #FFFFFF;
+			/* font-family: CiscoSans; */
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 22px;
+			text-align: center;
+			padding: 18px;
+			cursor: pointer;
+			border-color: #29CAC3;
+			margin-top: 20px;
+		}
+		.forgot-link {
+			text-align: right;
+			margin-bottom: 20px;
+		}
+		.forgot-link > a {
+			color: #1E1428;
+			font-family: CiscoSans;
+			font-size: 14px;
+			font-weight: 300;
+			line-height: 30px;
+			text-align: right;
+			text-decoration: none;
+			cursor: not-allowed;
+		}
+		.or-separator {
+			margin: 30px 0;
+			text-align: center;
+			position: relative;
+		}
+		.or-text {
+			color: #1E1428;
+			/* font-family: CiscoSans; */
+			font-size: 14px;
+			font-weight: 300;
+			line-height: 30px;
+			text-align: center;
+			width: 30px;
+			height: 30px;
+			background-color: #fff;
+			z-index: 2;
+		}
+		.or-separator:before {
+			position: absolute;
+			left: 0;
+			width: 100%;
+			top: 15px;
+			height: 1px;
+			background-color: #efefef;
+			z-index: 1;
+			content: '';
+		}
+		.signup-btn {
+			border: 1px solid #083584;
+			border-radius: 4px;
+			background-color: #FFFFFF;
+			color: #083584;
+			font-size: 16px;
+			line-height: 22px;
+			text-align: center;
+			width: 100%;
+			padding: 18px;
+			cursor: pointer;
+		}
+		.terms-title {
+			color: #1E1428;
+			/* font-family: CiscoSans; */
+			font-size: 22px;
+			font-weight: 300;
+			line-height: 30px;
+		}
+		.terms-message {
+			color: #1E1428;
+			/* font-family: CiscoSans; */
+			font-size: 14px;
+			line-height: 19px;
+			margin: 20px 0;
+		}
+		.terms-warning {
+			color: #1E1428;
+			/* font-family: CiscoSans; */
+			font-size: 14px;
+			line-height: 19px;
+			margin: 40px 0;
+		}
+		.terms-link {
+			color: #00CEC4;
+			/* font-family: CiscoSans; */
+			font-size: 14px;
+			text-decoration: none;
+			cursor: not-allowed;
+		}
+		.terms-continue-btn {
+			color: #FFFFFF;
+			font-family: CiscoSans;
+			font-size: 16px;
+			line-height: 30px;
+			text-align: center;
+			border-radius: 4px;
+			background-color: #29CAC3;
+			padding: 14px;
+			outline: none;
+			border: none;
+			width: 100%;
+			cursor: pointer;
+		}
+		.hidden {
+			opacity: 0;
+			visibility: hidden;
+			height: 0;
+			overflow: hidden;
+		}
+		.container#legalTermsContainer {
+			padding: 30px 80px;
+		}
+		#partnerTenantIdInput {
+			margin-bottom: 30px;
+		}
+	</style>
+	<script language="JavaScript">
+		function authenticateUser() {
+			var email = document.forms["loginForm"]["email"].value;
+			var password = document.forms["loginForm"]["password"].value;
+			if (email == "") {
+				alert("Email should not be empty");
+				return false;
+			}
+			if (password == "") {
+				alert("Password should not be empty");
+				return false;
+			}
+
+			if (validateEmail(email)) {
+				var loginEle = document.getElementById('loginContainer');
+				loginEle.classList.add('hidden');
+
+				var termsEle = document.getElementById('legalTermsContainer');
+				termsEle.classList.remove('hidden');
+			}
+		}
+
+		function showSignUp() {
+			window.location.reload();
+		}
+
+		function submitForm() {
+			var parameters = window.location.search.substring(1).split("&");
+			parameters = parameters.toString();
+			parameters = parameters.replace(/,/g, '&')
+			var form = document.getElementById("loginForm");
+			form.action = "/auth/validateLogin?" + parameters;
+			form.method = "post";
+			form.submit();
+		}
+
+		function agreeTerms() {
+			var isSandbox = document.getElementById("isSandbox").value;
+			if(isSandbox) {
+				var termsEle = document.getElementById('legalTermsContainer');
+				termsEle.classList.add('hidden');
+
+				var termsEle = document.getElementById('partnerTenantIdContainer');
+				termsEle.classList.remove('hidden');
+			} else {
+				submitForm();
+			}
+		}
+
+		function linkPartnerTenantId() {
+			var altAccountInput = document.getElementById("partnerTenantIdInput").value;
+			altAccountInput = altAccountInput.trim();
+			if(altAccountInput && altAccountInput.length) {
+				var altAccId = document.getElementById("alternativePartnerTenantId");
+				altAccId.value = altAccountInput;
+				submitForm();
+			}
+		}
+
+		function validateEmail(email) {
+			var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+			if (reg.test(email)) {
+				return true;
+			}
+			else {
+				alert('You have entered an invalid email address!');
+				return false;
+			}
+		}
+
+		function takeToSignUp() {
+			var parameters = window.location.search.substring(1);
+			// parameters = parameters.toString();
+			// parameters = parameters.replace(/,/g, '&')
+			// var form = document.getElementById("loginForm");
+			// form.action = "/auth/validateLogin?" + parameters;
+			// form.method = "post";
+			// form.submit();
+			if(window.location.origin && parameters) {
+				var origin = window.location.origin;
+				var pathName = "/auth/signup";
+				var newUrl = origin + pathName + "?" + parameters;
+				window.location.href = newUrl;
+			}
+		}
+		
+		function getRedirectDomain() {
+			var parameters = window.location.search.substring(1).split("&");
+			if(parameters[1].length) {
+				if(parameters[1].indexOf("redirect_uri=") > -1) {
+					var redirectParamsArr = parameters[1].split("redirect_uri=");
+					var redirectDomainUrlArr = redirectParamsArr[1].split("/partner");
+					var redirectDomainUrl = redirectDomainUrlArr[0];
+					if(redirectDomainUrl) {
+						document.getElementById("redirectUrl1").innerHTML = redirectDomainUrl;
+						document.getElementById("redirectUrl2").innerHTML = redirectDomainUrl;
+					}
+				}
+			}
+		}
+	</script>
+
+</head>
+
+<body onload="getRedirectDomain()">
+	<header>
+		<div class="parent">
+			<div class="wrapper">
+				<!-- <div class="header">Trigue</div> -->
+				<div class="container" id="loginContainer">
+					<div class="header">
+						<div class="header-image">
+							<img src="/app.png" alt="App Logo"/>
+						</div>
+						<div class="header-title">
+							Please login to your account
+						</div>
+					</div>
+					<form id="loginForm" name="loginForm" onsubmit="return false">
+						<div class="form-group">
+							<label class="form-label" for="email">Email Address</label>
+							<input placeholder="Email Address" class="custom-input" type="text" id="email" name="email" value="<%= credentials.email %>" required>
+						</div>
+						<div class="form-group">
+							<label class="form-label" for="password">Password</label>
+							<input placeholder="Password" class="custom-input" type="password" id="password" name="password" value="<%= credentials.password %>" required>
+						</div>
+						<input type="hidden" id="isSandbox" name="isSandbox" value="<%=sandbox %>" />
+						<input type="hidden" id="alternativePartnerTenantId" name="alternativePartnerTenantId" />
+						<!-- <div class="form-group">
+							<label class="form-label" for="confirmPassword">Confirm Password</label>
+							<input placeholder="Confirm Password" class="custom-input" type="password" id="confirmPassword" name="password" required>
+						</div> -->
+						<div class="forgot-link">
+							<a href="javascript:void(0);">Forgot Password?</a>
+						</div>
+
+						<input class="login-btn" type="submit" value="Login" onclick="authenticateUser()">
+
+						<!-- show any messages that come back with authentication -->
+    					<% if (message.length > 0) { %>
+							<div id="errorMessage" class="alert"><%= message %></div>
+						<% } %>
+
+						<div class="or-separator">
+							<span class="or-text">OR</span>
+						</div>
+
+						<div class="signup-btn-wrapper">
+							<button class="signup-btn" onclick="takeToSignUp()">Sign Up</button>
+						</div>
+					</form>
+				</div>
+				<div class="container hidden" id="legalTermsContainer">
+					<div class="terms-title">
+						Legal Agreement
+					</div>
+					<div class="terms-message">
+						To continue, Trigue will share location inteligent with <span id="redirectUrl1"></span>.
+					</div>
+					<div class="terms-warning">
+						By clicking Continue button, you accept <span id="redirectUrl2"></span>’s 
+						<a href="javascript:void(0);" class="terms-link">Privacy Policy</a> and <a href="javascript:void(0);" class="terms-link">Terms and Conditions</a>.
+					</div>
+					<div class="terms-continue-wrapper">
+						<button class="terms-continue-btn" onclick="agreeTerms()">Continue</button>
+					</div>
+					<!-- <div class="terms-continue-wrapper"></div>
+						<button class="signup-btn" onclick="showSignUp()">Cancel</button>
+					</div> -->
+				</div>
+				<div class="container hidden" id="partnerTenantIdContainer">
+					<div class="terms-title">
+						Partner Tenant Id
+					</div>
+					<div class="terms-message">
+						You can link your Partner Tenant ID below
+					</div>
+					<div>
+						<input type="text" placeholder="Partner Tenant Id" name="partnerTenantId" id="partnerTenantIdInput" value="<%= credentials.partnerTenantId %>">
+					</div>
+					<div class="terms-continue-wrapper">
+						<button class="terms-continue-btn" onclick="linkPartnerTenantId()">Proceed</button>
+					</div>
+					<!-- <div class="terms-continue-wrapper"></div>
+						<button class="signup-btn" onclick="showSignUp()">Cancel</button>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</header>
+</body>
+
+</html>
