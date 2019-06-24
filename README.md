@@ -2,32 +2,32 @@
 
     Sample Application for activating Cisco DNASpaces partner application
 
-    Cisco DNA Spaces uses OAuth 2.0 to facilitate integration with the Partner dashboard to authenticate customers for App activation and uses signed JSON
-Web Token (JWT) authentication to launch the application.
+    Cisco DNA Spaces uses OAuth 2.0 to facilitate integration with the Partner dashboard to authenticate 
+    customers for App activation and uses signed JSON Web Token (JWT) authentication to launch the application.
 
 
 ## Installation
 
-	Install Node.js and execute "npm install" command under the root folder.
+	Install Node.js and execute "npm install" command under the project root folder.
 
 
 ## Configuration
 
-Property Update Under Conf folder
+Properties to be updated under the conf folder
 
 1.customer-clientId.json
 
-    clientSecret - Update the client secret which is configured in "App Tile Configuration" in partner dashboard section.
-    redirectUri - Update the Redirect URI which is configured in "App Tile Configuration" in partner dashboard section.
+    clientSecret - Update the client secret which is configured in "App Tile Configuration" section in partner dashboard.
+    redirectUri - Update the Redirect URI which is configured in "App Tile Configuration" section in partner dashboard.
     partnerName - Update the partner tenant name
 
 2.customer.json
 
-    Update the partner details in this file like partner name, tenantId,email,phone and telemetry.
+    Update the partner details in this file like partner name, tenantId, email, phone and telemetry.
 
 3.user.json
     
-    Default user credentails will be available for OAuth authentication. Once user signup got completed, those user will be added into this file for further authentivation in partner site.
+    Default user credentails template will be available for OAuth authentication. Once a new user signs up, that user's credentails will be added into this file for further authentication in the partner site.
 
 4.oauth-properties.json
 
