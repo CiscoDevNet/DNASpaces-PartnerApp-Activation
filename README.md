@@ -1,2 +1,2 @@
 # dna-spaces-firehose-app
-Sample Application for integration with Cisco DNASpaces for application activation
+Sample Application for activating Cisco DNASpaces partner application
