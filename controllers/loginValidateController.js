@@ -334,6 +334,10 @@ exports.dashboardPage = function (req, res) {
     res.end();
 }
 
+exports.onPremDashboardPage = function (req, res) {
+    res.render('onprem_dashboard.ejs')
+    res.end();
+}
 exports.saveUser = function (req, res) {
     let email = req.body.email;
     let password = req.body.password;

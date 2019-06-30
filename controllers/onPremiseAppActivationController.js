@@ -61,7 +61,8 @@ exports.activateOnPremiseApp = function (req, res) {
                             console.log("***** On Premise Token Verification Error ******",JSON.stringify(err));
                             console.log("***** On Premise JWT Token ******", decoded);
                             if(decoded != undefined && decoded != null)
-                                doActivateOnPremiseApp(req, res, decoded, baseDomain)
+                                // doActivateOnPremiseApp(req, res, decoded, baseDomain, activationKey)
+                                res.render('setup/showDetails.ejs', { customer: decoded.customer, activationKey: activationKey});
                             else{
                                 console.log("******* Token Error Message *****", err["message"]);
                                 res.render('setup/activate.ejs', { message: err["message"]});
@@ -96,8 +97,21 @@ exports.activateOnPremiseApp = function (req, res) {
 }
 
 
-function doActivateOnPremiseApp(req, res, payload, baseDomain) {
+exports.doActivateOnPremiseApp = function(req, res) {
     console.log("******* doActivateOnPremiseApp method called *********");
+    let body = req.body;
+    let activationKey = body.activationKey;
+    let base64Url = activationKey.split('.')[1];
+    console.log("doActivateOnPremiseApp :: base64Url : ",base64Url);
+    if(base64Url === undefined){
+        res.render('setup/activate.ejs', { message: "The activation key is not valid."});
+    }
+    let base64 = base64Url.replace('-', '+').replace('_', '/');
+    let payload = JSON.parse(atob(base64));
+    console.log('******* doActivateOnPremiseApp: Payload  ******** ',payload); 
+    var baseUrl = payload.baseUrl
+    var baseDomain = baseUrl.split('//')[1];
+    console.log(" ******* baseDomain ********", baseDomain)
     let appId = payload.appId
     let activationRefId = payload.activationRefId
     let postData = {
@@ -110,7 +124,8 @@ function doActivateOnPremiseApp(req, res, payload, baseDomain) {
         path: '/client/v1/partner/activateOnPremiseApp',
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+activationKey
         }
     };
     console.log('options::', options, 'post_data', postData); 

@@ -120,6 +120,43 @@
 			margin-top: 20px;
             text-decoration: none;
 		}
+
+		.activate-btn {
+			border-radius: 4px;
+			background-color: #29CAC3;
+			color: #FFFFFF;
+			/* font-family: CiscoSans; */
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 22px;
+			text-align: center;
+			padding: 18px;
+			cursor: pointer;
+			border-color: #29CAC3;
+			margin-top: 20px;
+            text-decoration: none;
+			width: 48%;
+			display: inline-block;
+		}
+
+		.cancel-btn {
+			border-radius: 4px;
+			background-color: #FFFFFF;
+			color: #29CAC3;
+			/* font-family: CiscoSans; */
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 22px;
+			text-align: center;
+			padding: 18px;
+			cursor: pointer;
+			border-color: #29CAC3;
+			margin-top: 20px;
+            text-decoration: none;
+			width: 48%;
+			display: inline-block;
+			margin-right: 10px;
+		}
 		
 		.or-separator {
 			margin: 30px 0;
@@ -200,25 +237,33 @@
 		.step-label {
 			line-height: 24px;
 		}
-		.hidden {
-            opacity: 0;
+        #activationKeyDiv {
             visibility: hidden;
         }
-        .congrats-label {
-            color: #29CAC3;
-            font-size: 20px;
-            margin-right: 4px;
-        }
-    </style>
-    <script>
-        function printApiKey() {
-           var apiKey = document.getElementById("apiKey").innerHTML;
-           console.log("Api Key::",apiKey);
-        }
-    </script>
+		
+	</style>
+
+	<script language="JavaScript">
+		function activateOnPremiseApp() {
+			var activationKey = document.getElementById("activationKeyDiv").innerHTML;
+			document.getElementById("activationKey").value = activationKey;
+			submitForm();
+		}
+
+		function submitForm() {
+			var form = document.getElementById("activationForm");
+			form.action = "/auth/doActivateOnPremiseApp";
+			form.method = "post";
+			form.submit();
+		}
+
+		function takeToHomePage(){
+			window.location.href = "/auth/home"
+		}
+	</script>
 </head>
 
-<body onload="printApiKey()">
+<body>
 	<div class="container">
 		<div class="overlay"></div>
 		<header>
@@ -240,14 +285,30 @@
 							<div class="connector"></div>
 							<div class="step active">3</div>
 							<div class="connector"></div>
-							<div class="step active">4</div>
+							<div class="step">4</div>
 						</div>
 						<div class="activationForm">
-							<h2 class="step-heading">4. COMPLETE</h2>
-							<div class="step-label"><span class="congrats-label">Congratulations!</span>  Your App has been activated successfully.</div>
-                            <span id='apiKey' hidden class="hidden">
-                                <%= apiData['apiKey'] %>
-                            </span>
+							<h2 class="step-heading">3. CONFIRM</h2>
+							<div class="step-label">
+								This app is being activated for <strong><% if (customer.length > 0) { %> <%= customer %> <% } %></strong>. Do you want to activate?
+							</div>
+							<form id="activationForm" name="activationForm" onsubmit="return false">
+								
+								<div id="activationKeyDiv" name="activationKeyDiv"><%= activationKey %></div>
+                                <input type="hidden" id="activationKey" name="activationKey" />
+		
+								<input class="activate-btn" type="submit" value="Yes" onclick="activateOnPremiseApp()">
+								<input class="cancel-btn" type="button" value="No" onclick="takeToHomePage()">
+							</form>
+							<!-- <div>
+								Step 2: Navigate to the "<a href="/auth/activateOnPremiseApp">activation page</a>" and 
+							</div>
+							<div>
+								Once the app is activated, you will be getting the api key.
+							</div>
+							<div>
+								Step 3: Please use the Api Key while invoking the API to receive data from pull channels.
+							</div> -->
 						</div>
 					</div>
 				</div>

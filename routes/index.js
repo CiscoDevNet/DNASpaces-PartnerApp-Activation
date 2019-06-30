@@ -17,6 +17,7 @@ router.post('/appLogin', loginValidateController.appLogin);
 /* Show partner dashboard page */
 router.get('/dashboard', loginValidateController.dashboardPage);
 
+router.get('/onprem/dashboard', loginValidateController.onPremDashboardPage);
 /* Singup page */
 router.get('/signup', loginValidateController.signUp);
 
