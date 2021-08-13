@@ -1,8 +1,8 @@
 # DNASpaces PartnerApp Activation
 
-    This sample application shows you how to activate the Cisco DNA Spaces partner application. 
-    Cisco DNA Spaces uses OAuth 2.0 to facilitate integration with the Partner dashboard to authenticate customers for 
-    App Activation and uses signed JSON Web Token (JWT) authentication to launch the application.
+    This sample application shows partners how to integrate with Cisco DNA Spaces for cloud application activation. 
+    Cisco DNA Spaces uses OAuth 2.0 to facilitate integration with the Partner dashboard, for 
+    Cloud App Activation and for launching activated application using signed JSON Web Token (JWT) authentication for seamless login experience.
 
 
 ## Installation
